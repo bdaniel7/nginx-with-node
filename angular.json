@@ -15,14 +15,22 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "progress": true,
             "polyfills": "src/polyfills.ts",
-            "assets": [
-              "src/assets"
+            "assets": [{
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              "src/assets",
+              "src/favicon.ico",
+              "src/web.config"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.scss",
+              "node_modules/ag-grid/dist/styles/ag-grid.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-fresh.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-blue.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-material.css"
             ],
             "scripts": []
           },
@@ -37,30 +45,46 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ]
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }]
+            },
+            "qa": {
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.qa.ts"
+              }]
+            },
+            "uat": {
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.uat.ts"
+              }]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "trains.ui:build"
+            "browserTarget": "edatower:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "trains.ui:build:production"
+              "browserTarget": "edatower:build:production"
+            },
+            "qa": {
+              "browserTarget": "edatower:build:qa"
+            },
+            "uat": {
+              "browserTarget": "edatower:build:uat"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "trains.ui:build"
+            "browserTarget": "edatower:build"
           }
         },
         "test": {
@@ -72,11 +96,15 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/styles.scss",
+              "node_modules/ag-grid/dist/styles/ag-grid.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-fresh.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-blue.css",
+              "node_modules/ag-grid/dist/styles/ag-theme-material.css"
             ],
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/favicon.ico"
             ]
           }
         },
@@ -94,16 +122,16 @@
         }
       }
     },
-    "trains.ui-e2e": {
-      "root": "e2e",
-      "sourceRoot": "e2e",
+    "edatower-e2e": {
+      "root": "",
+      "sourceRoot": "",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "trains.ui:serve"
+            "devServerTarget": "edatower:serve"
           }
         },
         "lint": {
@@ -120,7 +148,7 @@
       }
     }
   },
-  "defaultProject": "trains.ui",
+  "defaultProject": "edatower",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
