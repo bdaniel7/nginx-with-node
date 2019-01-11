@@ -6,6 +6,5 @@ COPY *.json ./build/
 
 WORKDIR ./build
 
-RUN npm i -g @angular/cli \
-	  && npm audit fix \
-	  && npm install
+RUN npm i -g @angular/cli \	  
+   && npm install
