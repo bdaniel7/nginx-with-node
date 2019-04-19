@@ -1,4 +1,4 @@
-FROM node:11.4
+FROM node:11
 
 MAINTAINER Daniel Blendea <bdaniel7@gmail.com>
 
